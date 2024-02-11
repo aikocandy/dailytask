@@ -1,7 +1,7 @@
 const ethers = require('ethers');
 const crypto = require('crypto');
 const fs = require('fs');
-const  { createTask, getTaskResult } = require('../../utils/yesCaptcha/yesCaptcha.js');
+const { createTask, getTaskResult } = require('../../utils/yesCaptcha/yesCaptcha.js');
 const csv = require('csv-parser');
 const fakeUa = require('fake-useragent');
 const readlineSync = require('readline-sync');
@@ -11,7 +11,7 @@ const contractABI = require('./ABI/qna3.json');
 const axios = require('axios');
 const userAgent = fakeUa();
 const { HttpsProxyAgent } = require('https-proxy-agent');
-const { sleep, randomPause, sendRequest} = require('../../utils/utils.js');
+const { sleep, randomPause, sendRequest } = require('../../utils/utils.js');
 
 const contractTemplate = new ethers.Contract(contractAddress, contractABI);
 
@@ -53,11 +53,10 @@ const headers = {
     'x-lang': 'english',
 };
 
-
 async function recaptcha(pageAction) {
-    const {taskId} = await createTask(websiteUrl, websiteKey, 'RecaptchaV3TaskProxyless', pageAction);
+    const { taskId } = await createTask(websiteUrl, websiteKey, 'RecaptchaV3TaskProxyless', pageAction);
     let result = await getTaskResult(taskId);
-    // 如果result为空，等待6秒后再次请求
+    // 결과가 비어 있으면 6초 동안 기다린 후 다시 요청하세요.
     if (!result) {
         await sleep(0.1);
         result = await getTaskResult(taskId);
@@ -68,12 +67,10 @@ async function recaptcha(pageAction) {
     }
     const { gRecaptchaResponse } = result.solution
     return gRecaptchaResponse
-
-
 }
 
-async function login (wallet){
-    //const gRecaptchaResponse = await recaptcha('login');
+async function login(wallet) {
+    // const gRecaptchaResponse = await recaptcha('login');
     const url = 'https://api.qna3.ai/api/v2/auth/login?via=wallet';
     const msg = 'AI + DYOR = Ultimate Answer to Unlock Web3 Universe'
     const signature = await wallet.signMessage(msg);
@@ -106,7 +103,7 @@ async function checkIn(wallet) {
     const data = {
         "hash": transactionInfo.transactionHash,
         "via": 'opbnb',
-        };
+    };
     const urlConfig = {
         headers: headers,
         httpsAgent: agent,
@@ -139,7 +136,7 @@ async function main() {
                 console.log(`登录成功，开始签到`);
                 const checkInStatus = await checkIn(wallet);
                 console.log("签到成功🏅")
-                // 暂停一段时间
+                // 잠시 멈춤
                 const pauseTime = randomPause();
                 console.log(`任务完成，线程暂停${pauseTime}秒`);
                 await sleep(pauseTime);

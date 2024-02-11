@@ -4,11 +4,11 @@ const csv = require('csv-parser');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const readlineSync = require('readline-sync');
 
-const inputFilePath = '/Users/admin/Desktop/testwallet/wallet.csv'; // 输入的CSV文件路径
-const outputFilePath = '/Users/admin/Desktop/testwallet/wallet.csv'; // 输出的CSV文件路径
-const columnIndex = 'privateKey'; // 需要加密的列的列名
+const inputFilePath = '/Users/admin/Desktop/testwallet/wallet.csv'; // 입력 CSV 파일 경로
+const outputFilePath = '/Users/admin/Desktop/testwallet/wallet.csv'; //  출력 CSV 파일 경로
+const columnIndex = 'privateKey'; // 암호화가 필요한 컬럼의 컬럼명
 
-// 加密函数
+// 암호화 기능
 function encrypt(text, secretKey) {
     const iv = crypto.randomBytes(16);
     const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(secretKey), iv);
@@ -20,9 +20,9 @@ function encrypt(text, secretKey) {
 
 function getKeyFromUser() {
     const key = readlineSync.question('请输入密码: ', {
-        hideEchoBack: true, 
+        hideEchoBack: true,
     });
-    return crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32); 
+    return crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32);
 }
 
 function encryptColumnInCsv(inputFilePath, outputFilePath, privateKey) {
@@ -40,7 +40,7 @@ function encryptColumnInCsv(inputFilePath, outputFilePath, privateKey) {
         .on('end', () => {
             const csvWriter = createCsvWriter({
                 path: outputFilePath,
-                header: Object.keys(results[0]).map((key) => ({id: key, title: key})),
+                header: Object.keys(results[0]).map((key) => ({ id: key, title: key })),
             });
             csvWriter.writeRecords(results)
                 .then(() => {
