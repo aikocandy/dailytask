@@ -1,8 +1,7 @@
+프록시 웹사이트: https://app.proxy-cheap.com/r/IAFX8J
 
-代理网站：https://app.proxy-cheap.com/r/IAFX8J
+회원가입 후 1G 요금제를 US$4.99에 구매하시면 1G로도 오랫동안 사용하실 수 있습니다.
 
-注册之后，购买4.99美金 1G的计划，1G够你用很久了
+구매 후 [My Proxies] 메뉴 바에서 [Credentials Generator]를 클릭하고 [Setup Credentials]를 클릭한 후 [Curl 예시]의 링크 문자열을 복사합니다. 예: http://9xmb93yh: xxxxxxx@proxy .proxy-cheap.com:31112
 
-买了之后，在【My Proxies】的菜单栏内，点击【Credentials Generator】凭证生成器里面，点击【Setup Credentials】，然后复制【Curl Example】内的一串链接，例：http://9xmb93yh:xxxxxxxx@proxy.proxy-cheap.com:31112 
-
-然后将这串链接填到 runner.json 的Proxy中
+그런 다음 이 링크 문자열을 runer.json의 프록시에 입력하세요.
